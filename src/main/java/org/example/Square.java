@@ -6,11 +6,11 @@ public class Square {
     boolean uncovered;
     boolean flagged;
 
-    public Square(boolean m, int prox, boolean unc, boolean fl) {
+    public Square(boolean m, int prox) {
         this.mined = m;
         this.proximity = prox;
-        this.uncovered = unc;
-        this.flagged = fl;
+        this.uncovered = false;
+        this.flagged = false;
 
     }
 
