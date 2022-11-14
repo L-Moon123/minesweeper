@@ -42,8 +42,11 @@ public class Grid {
         //create proximity values for squares
         for (int i = 0; i < structure.length; i++) {
             for (int j = 0; j < structure[i].length; j++) {
-                if () {
+                if (structure[i][j].getMined() == true) {
 
+                }
+                else {
+                    
                 }
 
                 structure[x_coord][y_coord].setMined(true);
