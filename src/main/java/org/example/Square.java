@@ -28,4 +28,22 @@ public class Square {
     public boolean isFlagged() {
         return this.flagged;
     }
+
+
+    // Setter methods
+    public void setMined(boolean mined) {
+        this.mined = mined;
+    }
+
+    public void setProximity(int proximity) {
+        this.proximity = proximity;
+    }
+
+    public void setUncovered(boolean uncovered) {
+        this.uncovered = uncovered;
+    }
+
+    public void setFlagged(boolean flagged) {
+        this.flagged = flagged;
+    }
 }
