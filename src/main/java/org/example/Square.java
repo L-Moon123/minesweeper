@@ -6,9 +6,9 @@ public class Square {
     boolean uncovered;
     boolean flagged;
 
-    public Square(boolean m, int prox) {
-        this.mined = m;
-        this.proximity = prox;
+    public Square() {
+        this.mined = false;
+        this.proximity = 0;
         this.uncovered = false;
         this.flagged = false;
 
