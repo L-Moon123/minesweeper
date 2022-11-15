@@ -5,12 +5,14 @@ public class Square {
     int proximity;
     boolean uncovered;
     boolean flagged;
+    int adjacent_mines;
 
     public Square() {
         this.mined = false;
         this.proximity = 0;
         this.uncovered = false;
         this.flagged = false;
+        this.adjacent_mines = 0;
 
     }
 
@@ -24,9 +26,11 @@ public class Square {
     public boolean getUncovered() {
         return this.uncovered;
     }
-
     public boolean isFlagged() {
         return this.flagged;
+    }
+    public int getAdjMines() {
+        return this.adjacent_mines;
     }
 
 
@@ -45,5 +49,9 @@ public class Square {
 
     public void setFlagged(boolean flagged) {
         this.flagged = flagged;
+    }
+
+    public void setAdjMines(int adj_mines) {
+        this.adjacent_mines = adj_mines;
     }
 }

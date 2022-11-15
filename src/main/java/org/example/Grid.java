@@ -45,8 +45,8 @@ public class Grid {
                 if (structure[i][j].getMined() == true) {
 
                 }
-                else {
-                    
+                else if () {
+
                 }
 
                 structure[x_coord][y_coord].setMined(true);
