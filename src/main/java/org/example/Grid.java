@@ -47,50 +47,55 @@ public class Grid {
         int adj_mines = 0;
         for (int i = 0; i < structure.length; i++) {
             for (int j = 0; j < structure[i].length; j++) {
-                if (structure[i][j].getMined() == true) {
+                try {
+                    if (structure[i][j].getMined()) {
+
+                    }
+
+                    if (structure[i][j - 1].getMined()) {
+                        adj_mines += 1;
+                    }
+
+                    if (structure[i][j + 1].getMined()) {
+                        adj_mines += 1;
+
+                    }
+
+                    if (structure[i - 1][j].getMined()) {
+                        adj_mines += 1;
+
+                    }
+
+                    if (structure[i + 1][j].getMined()) {
+                        adj_mines += 1;
+
+                    }
+
+                    if (structure[i - 1][j - 1].getMined()) {
+                        adj_mines += 1;
+
+                    }
+
+                    if (structure[i - 1][j + 1].getMined()) {
+                        adj_mines += 1;
+
+                    }
+
+                    if (structure[i + 1][j - 1].getMined()) {
+                        adj_mines += 1;
+
+                    }
+
+                    if (structure[i + 1][j + 1].getMined()) {
+                        adj_mines += 1;
+
+                    }
+
+                    structure[i][j].setAdjMines(adj_mines);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                        
 
                 }
-                else if (structure[i][j - 1].getMined() == true) {
-                    adj_mines += 1;
-                }
-
-                if (structure[i][j + 1].getMined() == true) {
-                    adj_mines += 1;
-
-                }
-
-                if (structure[i - 1][j].getMined() == true) {
-                    adj_mines += 1;
-
-                }
-
-                if (structure[i + 1][j].getMined() == true) {
-                    adj_mines += 1;
-
-                }
-
-                if (structure[i - 1][j - 1].getMined() == true) {
-                    adj_mines += 1;
-
-                }
-
-                if (structure[i - 1][j + 1].getMined() == true) {
-                    adj_mines += 1;
-
-                }
-
-                if (structure[i + 1][j - 1].getMined() == true) {
-                    adj_mines += 1;
-
-                }
-
-                if (structure[i + 1][j + 1].getMined() == true) {
-                    adj_mines += 1;
-
-                }
-
-                structure[i][j].setAdjMines(adj_mines);
-
             }
         }
 
