@@ -6,13 +6,17 @@ public class Grid {
     int[][] mine_coords = new int[2][5];
 
     public Grid() {
-        //create grid with squares
+        //create grid with squares and store their coords
         structure = new Square[10][10];
         for (int row = 0; row < 10; row++) {
             for (int col = 0; col < 10; col++) {
                 structure[row][col] = new Square();
+                structure[row][col].setX_coord(row);
+                structure[row][col].setY_coord(col);
             }
         }
+
+
 
         //create coords for mines to be deployed
         Random rand = new Random();
@@ -40,16 +44,52 @@ public class Grid {
         }
 
         //create proximity values for squares
+        int adj_mines = 0;
         for (int i = 0; i < structure.length; i++) {
             for (int j = 0; j < structure[i].length; j++) {
                 if (structure[i][j].getMined() == true) {
 
                 }
-                else if () {
+                else if (structure[i][j - 1].getMined() == true) {
+                    adj_mines += 1;
+                }
+
+                if (structure[i][j + 1].getMined() == true) {
+                    adj_mines += 1;
 
                 }
 
-                structure[x_coord][y_coord].setMined(true);
+                if (structure[i - 1][j].getMined() == true) {
+                    adj_mines += 1;
+
+                }
+
+                if (structure[i + 1][j].getMined() == true) {
+                    adj_mines += 1;
+
+                }
+
+                if (structure[i - 1][j - 1].getMined() == true) {
+                    adj_mines += 1;
+
+                }
+
+                if (structure[i - 1][j + 1].getMined() == true) {
+                    adj_mines += 1;
+
+                }
+
+                if (structure[i + 1][j - 1].getMined() == true) {
+                    adj_mines += 1;
+
+                }
+
+                if (structure[i + 1][j + 1].getMined() == true) {
+                    adj_mines += 1;
+
+                }
+
+                structure[i][j].setAdjMines(adj_mines);
 
             }
         }

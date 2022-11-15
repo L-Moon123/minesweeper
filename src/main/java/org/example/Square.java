@@ -39,7 +39,7 @@ public class Square {
     }
 
     public int getX_coord() {
-        return this.x_coord
+        return this.x_coord;
     }
 
     public int getY_coord() {
