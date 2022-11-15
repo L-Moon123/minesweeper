@@ -22,13 +22,13 @@ public class Square {
     }
 
     // Getter methods
-    public boolean getMined() {
+    public boolean isMined() {
         return this.mined;
     }
     public int getProximity() {
         return this.proximity;
     }
-    public boolean getUncovered() {
+    public boolean isUncovered() {
         return this.uncovered;
     }
     public boolean isFlagged() {
