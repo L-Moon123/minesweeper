@@ -30,7 +30,7 @@ public class Grid {
         int x_coord = 0;
         int y_coord = 0;
         for (int i = 0; i < mine_coords.length; i++) {
-            for (int j=0; j<mine_coords[i].length; j++) {
+            for (int j = 0; j < mine_coords[i].length; j++) {
                 if (j != 1) {
                     x_coord = mine_coords[i][j];
                 }
@@ -93,7 +93,7 @@ public class Grid {
 
                     structure[i][j].setAdjMines(adj_mines);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                        
+
 
                 }
             }
