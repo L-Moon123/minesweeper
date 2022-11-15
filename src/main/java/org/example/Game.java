@@ -9,13 +9,14 @@ public class Game {
 // !!!!!!!!!!!!!!INCOMPLETE METHOD (this will also render the visible grid)!!!!!!!!!!!!!!!!!!!
     public static int[][] renderGrid() {
         for (int i=0; i < game_grid.length; i++) {
-            for (int j=0; j < game_grid[i].length; j++)
-            {   if () {
+            for (int j=0; j < game_grid[i].length; j++) {
+                if (game_grid[i][j].isUncovered()) {
 
-                visible_grid[i][j] = game_grid[i][j].getProximity();
+                    visible_grid[i][j] = game_grid[i][j].getProximity();
                 }
             }
         }
+        System.out.println(visible_grid);
 
     }
 
@@ -28,36 +29,46 @@ public class Game {
 
         else if (game_grid[x][y].isMined()) {
             System.out.println("!!!!!!!!!BOOOOOOOOOOOM!!!!!!!!..........you have hit a mine");
-
-            try {
-                Scanner scanner;
-                String answer;
-                System.out.println("Do you want to play another game? Enter y for yes or n for no and press enter");
-                scanner = new Scanner(System.in);
-                answer = scanner.next().toLowerCase();
-                scanner.close();
-
-                if (answer.equals("y")) {
-                    game_grid = new Grid().structure;
-                    visible_grid = new int[10][10];
-                    //BELOW METHOD CALL PROB CORRECT BUT CHECK
-                    //renderGrid();
-                }
-
-                while (!answer.equals("y") && !answer.equals("n")) {
+            Scanner scanner = new Scanner(System.in);
+            String answer = "";
 
 
-                    if (answer.equals("y")) {
+            while (!answer.equals("y") && !answer.equals("n")) {
+                try {
+                    if (answer.equals("")) {
+                        System.out.println("Do you want to play another game? Enter y for yes or n for no and press enter");
+                        scanner = new Scanner(System.in);
+                        answer = scanner.next().toLowerCase();
+                        scanner.close();
+                    }
+
+                    else if (answer.equals("y")) {
+                        scanner.close();
                         game_grid = new Grid().structure;
                         visible_grid = new int[10][10];
                         //BELOW METHOD CALL PROB CORRECT BUT CHECK
                         //renderGrid();
                     }
+
+
+                    else if (answer.equals("n")) {
+                        System.out.println("Hope you play again soon!..........laters taters!");
+                    }
+                }
+                catch (Exception e) {
+                    System.out.println("Incorrect input, please type either y for yes or n for no.");
+
                 }
             }
+
         }
-        //THIS WILL BE NEEDED SOMEWHERE
-        game_grid[i][j].setUncovered(true);
+
+        else {
+            game_grid[x][y].setUncovered(true);
+            //BELOW METHOD CALL PROB CORRECT BUT CHECK AT TIME
+            //renderGrid()
+        }
+
 
     }
 
