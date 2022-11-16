@@ -15,15 +15,16 @@ public class Game {
                     visible_grid[i][j] = game_grid[i][j].getAdjMines();
                 }
 
+                else if (game_grid[i][j].isUncovered() && game_grid[i][j].isMined() && !game_grid[i][j].isFlagged()) {
+                    visible_grid[i][j] = "M";
+
+                }
+
                 else if (game_grid[i][j].isFlagged()) {
                     visible_grid[i][j] = "F";
 
                 }
 
-                else if (game_grid[i][j].isUncovered() && game_grid[i][j].isMined()) {
-                    visible_grid[i][j] = "M";
-
-                }
 
                 else {
                     visible_grid[i][j] = " ";
@@ -61,6 +62,9 @@ public class Game {
                         visible_grid = new Object[10][10];
 
                         renderGrid();
+                        System.out.println("Press C and press enter to reveal a square");
+                        System.out.println("Press F and press enter to place or remove a flag");
+                        System.out.println("Press A and press enter to reveal adjacent squares");
                     }
 
 
@@ -78,8 +82,6 @@ public class Game {
 
         else {
             game_grid[y][x].setUncovered(true);
-
-            renderGrid();
         }
     }
 
@@ -155,6 +157,52 @@ public class Game {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        System.out.println("Welcome to Minesweeper!");
+        System.out.println("Select single squares on the grid to reveal them, if there are no mines present, " +
+                "you will reveal how many mines are adjacent to that square.....but if you hit a mine you lose!");
+        System.out.println("You can plant flags to mark where suspected mines are, sometimes these mines will already be uncovered, " +
+                "if this is the case then the mine will be cleared");
+        System.out.println("If a square is uncovered and has at least one adjacent mine next to it, you can select that square " +
+                "using an alternative command, this will make all adjacent squares around it visible");
+        System.out.println("Once all mines are flagged and all squares are cleared, you win!");
+        System.out.println("////////////////////////////////////////////////////////////////////////////////////////");
+
+        //!!!!!WHILE LOOP STARTS HERE!!!!!!!!!!
+        System.out.println("Press the C key and press enter to reveal a square");
+        System.out.println("Press the F key and press enter to plant a flag (you can also use this to remove a flag if a flag is already " +
+                "present on the square, this will remove the uncovered mine if it is present)");
+        System.out.println("Press the A key and press enter to reveal all adjacent squares around your chosen square (remember this can " +
+                "only be done with a square that is uncovered and contains at least one adjacent mine)");
+        try {
+            Scanner scanner = new Scanner(System.in);
+            String choice = scanner.next().toLowerCase();
+            scanner.close();
+
+            if (choice.equals("c")) {
+                System.out.println("Input the X coordinate of the square you want to reveal (0-9)");
+                Scanner scanner_x = new Scanner(System.in);
+                int x_coord = Integer.parseInt(scanner_x.next());
+                scanner_x.close();
+
+                System.out.println("Input the y coordinate of the square you want to reveal (0-9)");
+                Scanner scanner_y = new Scanner(System.in);
+                int y_coord = Integer.parseInt(scanner_y.next());
+                scanner_y.close();
+
+                revealSquare(x_coord, y_coord);
+
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException aie) {
+
+        }
+        catch (NumberFormatException nfe) {
+            System.out.println("Only whole numbers between 0-9 can be used, please try again");
+
+        }
+        catch (Exception e) {
+            System.out.println("Invalid input, please try again");
+
+        }
     }
 }
