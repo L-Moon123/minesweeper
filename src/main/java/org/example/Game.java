@@ -103,51 +103,55 @@ public class Game {
     }
 
     public static void revealAdjSquares(int x, int y) {
-        if (game_grid[y][x].isUncovered() && game_grid[y][x].getAdjMines() > 0) {
-            if (!game_grid[y][x - 1].isFlagged()) {
-                game_grid[y][x - 1].setUncovered(true);
+        try {
+            if (game_grid[y][x].isUncovered() && game_grid[y][x].getAdjMines() > 0) {
+                if (!game_grid[y][x - 1].isFlagged()) {
+                    game_grid[y][x - 1].setUncovered(true);
+
+                }
+
+                if (!game_grid[y][x + 1].isFlagged()) {
+                    game_grid[y][x + 1].setUncovered(true);
+
+                }
+
+                if (!game_grid[y - 1][x].isFlagged()) {
+                    game_grid[y - 1][x].setUncovered(true);
+
+                }
+
+                if (!game_grid[y + 1][x].isFlagged()) {
+                    game_grid[y + 1][x].setUncovered(true);
+
+                }
+
+                if (!game_grid[y - 1][x - 1].isFlagged()) {
+                    game_grid[y - 1][x - 1].setUncovered(true);
+
+                }
+
+                if (!game_grid[y - 1][x + 1].isFlagged()) {
+                    game_grid[y - 1][x + 1].setUncovered(true);
+
+                }
+
+                if (!game_grid[y + 1][x - 1].isFlagged()) {
+                    game_grid[y + 1][x - 1].setUncovered(true);
+
+                }
+
+                if (!game_grid[y + 1][x + 1].isFlagged()) {
+                    game_grid[y + 1][x + 1].setUncovered(true);
+
+                }
+
+                renderGrid();
 
             }
-
-            if (!game_grid[y][x + 1].isFlagged()) {
-                game_grid[y][x + 1].setUncovered(true);
-
-            }
-
-            if (!game_grid[y - 1][x].isFlagged()) {
-                game_grid[y - 1][x].setUncovered(true);
-
-            }
-
-            if (!game_grid[y + 1][x].isFlagged()) {
-                game_grid[y + 1][x].setUncovered(true);
-
-            }
-
-            if (!game_grid[y - 1][x - 1].isFlagged()) {
-                game_grid[y - 1][x - 1].setUncovered(true);
-
-            }
-
-            if (!game_grid[y - 1][x + 1].isFlagged()) {
-                game_grid[y - 1][x + 1].setUncovered(true);
-
-            }
-
-            if (!game_grid[y + 1][x - 1].isFlagged()) {
-                game_grid[y + 1][x - 1].setUncovered(true);
-
-            }
-
-            if (!game_grid[y + 1][x + 1].isFlagged()) {
-                game_grid[y + 1][x + 1].setUncovered(true);
-
-            }
-
-            renderGrid();
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
 
         }
-
     }
 
     public static void main(String[] args) {
