@@ -6,6 +6,8 @@ public class Game {
     static Square[][] game_grid = new Grid().structure;
     static Object[][] visible_grid = new Object[10][10];
 
+    static boolean game_over;
+
 
     public static Object[][] renderGrid() {
         for (int i=0; i < game_grid.length; i++) {
@@ -42,13 +44,17 @@ public class Game {
         }
 
         else if (game_grid[y][x].isMined()) {
-            System.out.println("!!!!!!!!!BOOOOOOOOOOOM!!!!!!!!..........you have hit a mine");
-            Scanner scanner = new Scanner(System.in);
+            System.out.println("!!!!!!!!!BOOOOOOOOOOOM!!!!!!!!.....game over.....you have hit a mine");
+            System.out.println("/////////////////////////////////////////////////////////////////////////////////////");
+
             String answer = "";
 
 
             while (!answer.equals("y") && !answer.equals("n")) {
                 try {
+                    System.out.println("Do you want to play another game? Enter y for yes or n for no and press enter");
+                    Scanner scanner = new Scanner(System.in);
+
                     if (answer.equals("")) {
                         System.out.println("Do you want to play another game? Enter y for yes or n for no and press enter");
                         scanner = new Scanner(System.in);
@@ -70,6 +76,7 @@ public class Game {
 
                     else if (answer.equals("n")) {
                         System.out.println("Hope you play again soon!..........laters taters!");
+                        game_over = true;
                     }
                 }
                 catch (Exception e) {
@@ -82,6 +89,7 @@ public class Game {
 
         else {
             game_grid[y][x].setUncovered(true);
+            renderGrid();
         }
     }
 
@@ -167,7 +175,7 @@ public class Game {
         System.out.println("Once all mines are flagged and all squares are cleared, you win!");
         System.out.println("////////////////////////////////////////////////////////////////////////////////////////");
 
-        //!!!!!WHILE LOOP STARTS HERE!!!!!!!!!!
+        //!!!!!WHILE LOOP STARTS HERE (and ends when game_over == true)!!!!!!!!!!
         System.out.println("Press the C key and press enter to reveal a square");
         System.out.println("Press the F key and press enter to plant a flag (you can also use this to remove a flag if a flag is already " +
                 "present on the square, this will remove the uncovered mine if it is present)");
@@ -191,6 +199,33 @@ public class Game {
 
                 revealSquare(x_coord, y_coord);
 
+            }
+            else if (choice.equals("f")) {
+                System.out.println("Input the X coordinate of the square you want to place/remove the flag (0-9)");
+                Scanner scanner_x = new Scanner(System.in);
+                int x_coord = Integer.parseInt(scanner_x.next());
+                scanner_x.close();
+
+                System.out.println("Input the y coordinate of the square you want to place/remove the flag (0-9)");
+                Scanner scanner_y = new Scanner(System.in);
+                int y_coord = Integer.parseInt(scanner_y.next());
+                scanner_y.close();
+
+                placeFlag(x_coord, y_coord);
+
+            }
+            else if (choice.equals("a")) {
+                System.out.println("Input the X coordinate of the square whose adjacent squares you wish to reveal (0-9)");
+                Scanner scanner_x = new Scanner(System.in);
+                int x_coord = Integer.parseInt(scanner_x.next());
+                scanner_x.close();
+
+                System.out.println("Input the y coordinate of the square whose adjacent squares you wish to reveal (0-9)");
+                Scanner scanner_y = new Scanner(System.in);
+                int y_coord = Integer.parseInt(scanner_y.next());
+                scanner_y.close();
+
+                revealAdjSquares(x_coord, y_coord);
             }
         }
         catch (ArrayIndexOutOfBoundsException aie) {
