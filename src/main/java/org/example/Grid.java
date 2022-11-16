@@ -10,9 +10,9 @@ public class Grid {
         structure = new Square[10][10];
         for (int row = 0; row < 10; row++) {
             for (int col = 0; col < 10; col++) {
-                structure[row][col] = new Square();
-                structure[row][col].setX_coord(row);
-                structure[row][col].setY_coord(col);
+                structure[col][row] = new Square();
+                structure[col][row].setX_coord(col);
+                structure[col][row].setY_coord(row);
             }
         }
 
@@ -32,13 +32,13 @@ public class Grid {
         for (int i = 0; i < mine_coords.length; i++) {
             for (int j = 0; j < mine_coords[i].length; j++) {
                 if (j != 1) {
-                    x_coord = mine_coords[i][j];
-                }
-                else {
                     y_coord = mine_coords[i][j];
                 }
+                else {
+                    x_coord = mine_coords[i][j];
+                }
 
-            structure[x_coord][y_coord].setMined(true);
+            structure[y_coord][x_coord].setMined(true);
 
             }
         }
@@ -48,45 +48,45 @@ public class Grid {
         for (int i = 0; i < structure.length; i++) {
             for (int j = 0; j < structure[i].length; j++) {
                 try {
-                    if (structure[i][j].getMined()) {
+                    if (structure[i][j].isMined()) {
 
                     }
 
-                    if (structure[i][j - 1].getMined()) {
+                    if (structure[i][j - 1].isMined()) {
                         adj_mines += 1;
                     }
 
-                    if (structure[i][j + 1].getMined()) {
-                        adj_mines += 1;
-
-                    }
-
-                    if (structure[i - 1][j].getMined()) {
+                    if (structure[i][j + 1].isMined()) {
                         adj_mines += 1;
 
                     }
 
-                    if (structure[i + 1][j].getMined()) {
+                    if (structure[i - 1][j].isMined()) {
                         adj_mines += 1;
 
                     }
 
-                    if (structure[i - 1][j - 1].getMined()) {
+                    if (structure[i + 1][j].isMined()) {
                         adj_mines += 1;
 
                     }
 
-                    if (structure[i - 1][j + 1].getMined()) {
+                    if (structure[i - 1][j - 1].isMined()) {
                         adj_mines += 1;
 
                     }
 
-                    if (structure[i + 1][j - 1].getMined()) {
+                    if (structure[i - 1][j + 1].isMined()) {
                         adj_mines += 1;
 
                     }
 
-                    if (structure[i + 1][j + 1].getMined()) {
+                    if (structure[i + 1][j - 1].isMined()) {
+                        adj_mines += 1;
+
+                    }
+
+                    if (structure[i + 1][j + 1].isMined()) {
                         adj_mines += 1;
 
                     }
