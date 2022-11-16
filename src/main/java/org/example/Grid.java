@@ -92,6 +92,7 @@ public class Grid {
                     }
 
                     structure[i][j].setAdjMines(adj_mines);
+
                 } catch (ArrayIndexOutOfBoundsException e) {
 
 
