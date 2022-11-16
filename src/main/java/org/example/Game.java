@@ -10,7 +10,7 @@ public class Game {
     public static Object[][] renderGrid() {
         for (int i=0; i < game_grid.length; i++) {
             for (int j=0; j < game_grid[i].length; j++) {
-                if (game_grid[i][j].isUncovered() && !game_grid[i][j].isMined() && !game_grid[i][j].isFlagged() && game_grid[i][j].getAdjMines() > 0) {
+                if (game_grid[i][j].isUncovered() && !game_grid[i][j].isMined() && !game_grid[i][j].isFlagged()) {
 
                     visible_grid[i][j] = game_grid[i][j].getAdjMines();
                 }
@@ -22,11 +22,6 @@ public class Game {
 
                 else if (game_grid[i][j].isUncovered() && game_grid[i][j].isMined()) {
                     visible_grid[i][j] = "M";
-
-                }
-
-                else if (game_grid[i][j].isUncovered() && game_grid[i][j].getAdjMines() < 1) {
-                    visible_grid[i][j] = 0;
 
                 }
 
