@@ -22,7 +22,7 @@ public class Grid {
         Random rand = new Random();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 2; j++) {
-                mine_coords[j][i] = rand.nextInt(11);
+                mine_coords[j][i] = rand.nextInt(10);
             }
         }
 
@@ -37,7 +37,7 @@ public class Grid {
                 else {
                     x_coord = mine_coords[i][j];
                 }
-            structure[x_coord][y_coord].setMined(true);
+            structure[y_coord][x_coord].setMined(true);
 
             }
         }

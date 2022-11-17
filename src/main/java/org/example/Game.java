@@ -53,7 +53,6 @@ public class Game {
 
             while (!answer.equals("y") && !answer.equals("n")) {
                 try {
-                    System.out.println("Do you want to play another game? Enter y for yes or n for no and press enter");
                     Scanner scanner = new Scanner(System.in);
 
                     if (answer.equals("")) {
@@ -79,7 +78,7 @@ public class Game {
                         game_over = true;
                     }
 
-                    scanner.close();
+
                 }
                 catch (Exception e) {
                     System.out.println("Incorrect input, please type either y for yes or n for no and press enter.");
@@ -100,19 +99,22 @@ public class Game {
     public static void placeFlag(int x, int y) {
         if (!game_grid[y][x].isFlagged()) {
             game_grid[y][x].setFlagged(true);
-            renderGrid();
+
         }
 
         else if (game_grid[y][x].isUncovered() && game_grid[y][x].isMined() && game_grid[y][x].isFlagged()) {
             game_grid[y][x].setMined(false);
             System.out.println("Mine cleared!!!!");
-            renderGrid();
+
         }
 
         else {
             game_grid[y][x].setFlagged(false);
-            renderGrid();
         }
+
+        //CURRENTLY COMMENTED OUT TO ALLOW APP TO BE TESTED (possibly causing index error)
+        //visible_grid = renderGrid();
+        //return visible_grid;
 
     }
 
@@ -159,13 +161,17 @@ public class Game {
 
                 }
 
-                renderGrid();
-
             }
         }
+
+
+
         catch (ArrayIndexOutOfBoundsException e) {
 
         }
+
+        //CURRENTLY COMMENTED OUT TO ALLOW APP TO BE TESTED (possibly causing index error)
+        //return renderGrid();
     }
 
     public static void main(String[] args) {
