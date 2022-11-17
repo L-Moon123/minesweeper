@@ -1,4 +1,5 @@
 package org.example;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Game {
@@ -10,8 +11,8 @@ public class Game {
 
 
     public static Object[][] renderGrid() {
-        for (int i=0; i < game_grid.length - 1; i++) {
-            for (int j=0; j < game_grid[i].length - 1; j++) {
+        for (int i=0; i < game_grid.length; i++) {
+            for (int j=0; j < game_grid[i].length; j++) {
                 if (game_grid[i][j].isUncovered() && !game_grid[i][j].isMined() && !game_grid[i][j].isFlagged()) {
 
                     visible_grid[i][j] = game_grid[i][j].getAdjMines();
@@ -29,7 +30,7 @@ public class Game {
 
 
                 else {
-                    visible_grid[i][j] = "[]";
+                    visible_grid[i][j] = "X";
                 }
             }
         }
@@ -178,7 +179,7 @@ public class Game {
         System.out.println("Once all mines are flagged and all squares are cleared, you win!");
         System.out.println("////////////////////////////////////////////////////////////////////////////////////////");
 
-        //!!!!!WHILE LOOP STARTS HERE (and ends when game_over == true)!!!!!!!!!!
+
         while (game_over == false) {
             System.out.println("Press the C key and press enter to reveal a square");
             System.out.println("Press the F key and press enter to plant a flag (you can also use this to remove a flag if a flag is already " +
@@ -201,13 +202,7 @@ public class Game {
 
 
                     Object[][] output = revealSquare(x_coord, y_coord);
-                    for (int i=0; i < output.length - 1; i++) {
-                        for (int j=0; j < output[i].length - 1; j++) {
-                            System.out.println(output[j][i]);
-
-                        }
-
-                    }
+                    System.out.println(Arrays.deepToString(output).replace("], ", "]\n"));
 
 
                 } else if (choice.equals("f")) {

@@ -32,11 +32,12 @@ public class Grid {
         for (int i = 0; i < mine_coords.length - 1; i++) {
             for (int j = 0; j < mine_coords[i].length - 1; j++) {
                 if (j != 1) {
+                    y_coord = mine_coords[i][j];
                 }
                 else {
-                    x_coord = mine_coords[j][i];
+                    x_coord = mine_coords[i][j];
                 }
-            structure[y_coord][x_coord].setMined(true);
+            structure[x_coord][y_coord].setMined(true);
 
             }
         }
