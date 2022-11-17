@@ -6,7 +6,7 @@ public class Game {
     static Square[][] game_grid = new Grid().structure;
     static Object[][] visible_grid = new Object[10][10];
 
-    static boolean game_over;
+    static boolean game_over = false;
 
 
     public static Object[][] renderGrid() {
@@ -176,68 +176,65 @@ public class Game {
         System.out.println("////////////////////////////////////////////////////////////////////////////////////////");
 
         //!!!!!WHILE LOOP STARTS HERE (and ends when game_over == true)!!!!!!!!!!
-        System.out.println("Press the C key and press enter to reveal a square");
-        System.out.println("Press the F key and press enter to plant a flag (you can also use this to remove a flag if a flag is already " +
-                "present on the square, this will remove the uncovered mine if it is present)");
-        System.out.println("Press the A key and press enter to reveal all adjacent squares around your chosen square (remember this can " +
-                "only be done with a square that is uncovered and contains at least one adjacent mine)");
-        try {
-            Scanner scanner = new Scanner(System.in);
-            String choice = scanner.next().toLowerCase();
-            scanner.close();
+        while (game_over == false) {
+            System.out.println("Press the C key and press enter to reveal a square");
+            System.out.println("Press the F key and press enter to plant a flag (you can also use this to remove a flag if a flag is already " +
+                    "present on the square, this will remove the uncovered mine if it is present)");
+            System.out.println("Press the A key and press enter to reveal all adjacent squares around your chosen square (remember this can " +
+                    "only be done with a square that is uncovered and contains at least one adjacent mine)");
+            try {
+                Scanner scanner = new Scanner(System.in);
+                String choice = scanner.next().toLowerCase();
+                scanner.close();
 
-            if (choice.equals("c")) {
-                System.out.println("Input the X coordinate of the square you want to reveal (0-9)");
-                Scanner scanner_x = new Scanner(System.in);
-                int x_coord = Integer.parseInt(scanner_x.next());
-                scanner_x.close();
+                if (choice.equals("c")) {
+                    System.out.println("Input the X coordinate of the square you want to reveal (0-9)");
+                    Scanner scanner_x = new Scanner(System.in);
+                    int x_coord = Integer.parseInt(scanner_x.next());
+                    scanner_x.close();
 
-                System.out.println("Input the y coordinate of the square you want to reveal (0-9)");
-                Scanner scanner_y = new Scanner(System.in);
-                int y_coord = Integer.parseInt(scanner_y.next());
-                scanner_y.close();
+                    System.out.println("Input the y coordinate of the square you want to reveal (0-9)");
+                    Scanner scanner_y = new Scanner(System.in);
+                    int y_coord = Integer.parseInt(scanner_y.next());
+                    scanner_y.close();
 
-                revealSquare(x_coord, y_coord);
+                    revealSquare(x_coord, y_coord);
+
+                } else if (choice.equals("f")) {
+                    System.out.println("Input the X coordinate of the square you want to place/remove the flag (0-9)");
+                    Scanner scanner_x = new Scanner(System.in);
+                    int x_coord = Integer.parseInt(scanner_x.next());
+                    scanner_x.close();
+
+                    System.out.println("Input the y coordinate of the square you want to place/remove the flag (0-9)");
+                    Scanner scanner_y = new Scanner(System.in);
+                    int y_coord = Integer.parseInt(scanner_y.next());
+                    scanner_y.close();
+
+                    placeFlag(x_coord, y_coord);
+
+                } else if (choice.equals("a")) {
+                    System.out.println("Input the X coordinate of the square whose adjacent squares you wish to reveal (0-9)");
+                    Scanner scanner_x = new Scanner(System.in);
+                    int x_coord = Integer.parseInt(scanner_x.next());
+                    scanner_x.close();
+
+                    System.out.println("Input the y coordinate of the square whose adjacent squares you wish to reveal (0-9)");
+                    Scanner scanner_y = new Scanner(System.in);
+                    int y_coord = Integer.parseInt(scanner_y.next());
+                    scanner_y.close();
+
+                    revealAdjSquares(x_coord, y_coord);
+                }
+            } catch (ArrayIndexOutOfBoundsException aie) {
+
+            } catch (NumberFormatException nfe) {
+                System.out.println("Only whole numbers between 0-9 can be used, please try again");
+
+            } catch (Exception e) {
+                System.out.println("Invalid input, please try again");
 
             }
-            else if (choice.equals("f")) {
-                System.out.println("Input the X coordinate of the square you want to place/remove the flag (0-9)");
-                Scanner scanner_x = new Scanner(System.in);
-                int x_coord = Integer.parseInt(scanner_x.next());
-                scanner_x.close();
-
-                System.out.println("Input the y coordinate of the square you want to place/remove the flag (0-9)");
-                Scanner scanner_y = new Scanner(System.in);
-                int y_coord = Integer.parseInt(scanner_y.next());
-                scanner_y.close();
-
-                placeFlag(x_coord, y_coord);
-
-            }
-            else if (choice.equals("a")) {
-                System.out.println("Input the X coordinate of the square whose adjacent squares you wish to reveal (0-9)");
-                Scanner scanner_x = new Scanner(System.in);
-                int x_coord = Integer.parseInt(scanner_x.next());
-                scanner_x.close();
-
-                System.out.println("Input the y coordinate of the square whose adjacent squares you wish to reveal (0-9)");
-                Scanner scanner_y = new Scanner(System.in);
-                int y_coord = Integer.parseInt(scanner_y.next());
-                scanner_y.close();
-
-                revealAdjSquares(x_coord, y_coord);
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException aie) {
-
-        }
-        catch (NumberFormatException nfe) {
-            System.out.println("Only whole numbers between 0-9 can be used, please try again");
-
-        }
-        catch (Exception e) {
-            System.out.println("Invalid input, please try again");
-
         }
     }
 }
