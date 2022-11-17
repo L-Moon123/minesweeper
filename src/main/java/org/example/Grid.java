@@ -22,22 +22,20 @@ public class Grid {
         Random rand = new Random();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 2; j++) {
-                mine_coords[i][j] = rand.nextInt(11);
+                mine_coords[j][i] = rand.nextInt(11);
             }
         }
 
         //deploy the mines
         int x_coord = 0;
         int y_coord = 0;
-        for (int i = 0; i < mine_coords.length; i++) {
-            for (int j = 0; j < mine_coords[i].length; j++) {
+        for (int i = 0; i < mine_coords.length - 1; i++) {
+            for (int j = 0; j < mine_coords[i].length - 1; j++) {
                 if (j != 1) {
-                    y_coord = mine_coords[i][j];
                 }
                 else {
-                    x_coord = mine_coords[i][j];
+                    x_coord = mine_coords[j][i];
                 }
-
             structure[y_coord][x_coord].setMined(true);
 
             }
@@ -45,8 +43,8 @@ public class Grid {
 
         //create proximity values for squares
         int adj_mines = 0;
-        for (int i = 0; i < structure.length; i++) {
-            for (int j = 0; j < structure[i].length; j++) {
+        for (int i = 0; i < structure.length - 1; i++) {
+            for (int j = 0; j < structure[i].length - 1; j++) {
                 try {
                     if (structure[i][j].isMined()) {
 

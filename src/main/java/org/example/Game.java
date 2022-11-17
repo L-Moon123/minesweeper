@@ -10,8 +10,8 @@ public class Game {
 
 
     public static Object[][] renderGrid() {
-        for (int i=0; i < game_grid.length; i++) {
-            for (int j=0; j < game_grid[i].length; j++) {
+        for (int i=0; i < game_grid.length - 1; i++) {
+            for (int j=0; j < game_grid[i].length - 1; j++) {
                 if (game_grid[i][j].isUncovered() && !game_grid[i][j].isMined() && !game_grid[i][j].isFlagged()) {
 
                     visible_grid[i][j] = game_grid[i][j].getAdjMines();
@@ -29,7 +29,7 @@ public class Game {
 
 
                 else {
-                    visible_grid[i][j] = " ";
+                    visible_grid[i][j] = "[]";
                 }
             }
         }
@@ -37,7 +37,7 @@ public class Game {
 
     }
 
-    public static void revealSquare(int x, int y) {
+    public static Object[][] revealSquare(int x, int y) {
         if (game_grid[y][x].isFlagged()) {
             System.out.println("You can not reveal a flagged square");
 
@@ -59,15 +59,14 @@ public class Game {
                         System.out.println("Do you want to play another game? Enter y for yes or n for no and press enter");
                         scanner = new Scanner(System.in);
                         answer = scanner.next().toLowerCase();
-                        scanner.close();
                     }
 
                     else if (answer.equals("y")) {
-                        scanner.close();
+
                         game_grid = new Grid().structure;
                         visible_grid = new Object[10][10];
 
-                        renderGrid();
+                        visible_grid = renderGrid();
                         System.out.println("Press C and press enter to reveal a square");
                         System.out.println("Press F and press enter to place or remove a flag");
                         System.out.println("Press A and press enter to reveal adjacent squares");
@@ -78,6 +77,8 @@ public class Game {
                         System.out.println("Hope you play again soon!..........laters taters!");
                         game_over = true;
                     }
+
+                    scanner.close();
                 }
                 catch (Exception e) {
                     System.out.println("Incorrect input, please type either y for yes or n for no and press enter.");
@@ -89,8 +90,10 @@ public class Game {
 
         else {
             game_grid[y][x].setUncovered(true);
-            renderGrid();
+            visible_grid = renderGrid();
         }
+
+        return visible_grid;
     }
 
     public static void placeFlag(int x, int y) {
@@ -185,47 +188,58 @@ public class Game {
             try {
                 Scanner scanner = new Scanner(System.in);
                 String choice = scanner.next().toLowerCase();
-                scanner.close();
 
                 if (choice.equals("c")) {
                     System.out.println("Input the X coordinate of the square you want to reveal (0-9)");
-                    Scanner scanner_x = new Scanner(System.in);
-                    int x_coord = Integer.parseInt(scanner_x.next());
-                    scanner_x.close();
+                    scanner = new Scanner(System.in);
+                    int x_coord = Integer.parseInt(scanner.next());
+
 
                     System.out.println("Input the y coordinate of the square you want to reveal (0-9)");
-                    Scanner scanner_y = new Scanner(System.in);
-                    int y_coord = Integer.parseInt(scanner_y.next());
-                    scanner_y.close();
+                    scanner = new Scanner(System.in);
+                    int y_coord = Integer.parseInt(scanner.next());
 
-                    revealSquare(x_coord, y_coord);
+
+                    Object[][] output = revealSquare(x_coord, y_coord);
+                    for (int i=0; i < output.length - 1; i++) {
+                        for (int j=0; j < output[i].length - 1; j++) {
+                            System.out.println(output[j][i]);
+
+                        }
+
+                    }
+
 
                 } else if (choice.equals("f")) {
                     System.out.println("Input the X coordinate of the square you want to place/remove the flag (0-9)");
-                    Scanner scanner_x = new Scanner(System.in);
-                    int x_coord = Integer.parseInt(scanner_x.next());
-                    scanner_x.close();
+                    scanner = new Scanner(System.in);
+                    int x_coord = Integer.parseInt(scanner.next());
+
 
                     System.out.println("Input the y coordinate of the square you want to place/remove the flag (0-9)");
-                    Scanner scanner_y = new Scanner(System.in);
-                    int y_coord = Integer.parseInt(scanner_y.next());
-                    scanner_y.close();
+                    scanner = new Scanner(System.in);
+                    int y_coord = Integer.parseInt(scanner.next());
+
 
                     placeFlag(x_coord, y_coord);
 
                 } else if (choice.equals("a")) {
                     System.out.println("Input the X coordinate of the square whose adjacent squares you wish to reveal (0-9)");
-                    Scanner scanner_x = new Scanner(System.in);
-                    int x_coord = Integer.parseInt(scanner_x.next());
-                    scanner_x.close();
+                    scanner = new Scanner(System.in);
+                    int x_coord = Integer.parseInt(scanner.next());
+
 
                     System.out.println("Input the y coordinate of the square whose adjacent squares you wish to reveal (0-9)");
-                    Scanner scanner_y = new Scanner(System.in);
-                    int y_coord = Integer.parseInt(scanner_y.next());
-                    scanner_y.close();
+                    scanner = new Scanner(System.in);
+                    int y_coord = Integer.parseInt(scanner.next());
+
 
                     revealAdjSquares(x_coord, y_coord);
+
                 }
+
+
+
             } catch (ArrayIndexOutOfBoundsException aie) {
 
             } catch (NumberFormatException nfe) {
