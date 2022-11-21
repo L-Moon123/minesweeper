@@ -4,7 +4,10 @@ import java.util.Scanner;
 
 public class Game {
 
+    //underlying grid
     static Square[][] game_grid = new Grid().structure;
+
+    //visible grid
     static Object[][] visible_grid = new Object[10][10];
 
     static boolean game_over = false;
@@ -22,6 +25,8 @@ public class Game {
                     visible_grid[i][j] = "M";
 
                 }
+
+
 
                 else if (game_grid[i][j].isFlagged()) {
                     visible_grid[i][j] = "F";
@@ -66,7 +71,6 @@ public class Game {
                         game_grid = new Grid().structure;
                         visible_grid = new Object[10][10];
 
-                        visible_grid = renderGrid();
                         System.out.println("Press C and press enter to reveal a square");
                         System.out.println("Press F and press enter to place or remove a flag");
                         System.out.println("Press A and press enter to reveal adjacent squares");
@@ -96,31 +100,34 @@ public class Game {
         return visible_grid;
     }
 
-    public static void placeFlag(int x, int y) {
+    public static Object[][] placeFlag(int x, int y) {
         if (!game_grid[y][x].isFlagged()) {
             game_grid[y][x].setFlagged(true);
+            visible_grid = renderGrid();
 
         }
 
         else if (game_grid[y][x].isUncovered() && game_grid[y][x].isMined() && game_grid[y][x].isFlagged()) {
             game_grid[y][x].setMined(false);
-            System.out.println("Mine cleared!!!!");
-
-        }
-
-        else {
             game_grid[y][x].setFlagged(false);
+            System.out.println("Mine cleared!!!!");
+            visible_grid = renderGrid();
+
         }
 
-        //CURRENTLY COMMENTED OUT TO ALLOW APP TO BE TESTED (possibly causing index error)
-        //visible_grid = renderGrid();
-        //return visible_grid;
+        else if (game_grid[y][x].isFlagged()) {
+            game_grid[y][x].setFlagged(false);
+            visible_grid = renderGrid();
+        }
+
+
+        return visible_grid;
 
     }
 
-    public static void revealAdjSquares(int x, int y) {
+    public static Object[][] revealAdjSquares(int x, int y) {
         try {
-            if (game_grid[y][x].isUncovered() && game_grid[y][x].getAdjMines() > 0) {
+            if (game_grid[y][x].isUncovered()) {
                 if (!game_grid[y][x - 1].isFlagged()) {
                     game_grid[y][x - 1].setUncovered(true);
 
@@ -160,18 +167,18 @@ public class Game {
                     game_grid[y + 1][x + 1].setUncovered(true);
 
                 }
+            }
 
+            else {
+                System.out.println("You can only reveal adjacent squares around a square that is uncovered");
             }
         }
-
-
-
         catch (ArrayIndexOutOfBoundsException e) {
 
         }
 
-        //CURRENTLY COMMENTED OUT TO ALLOW APP TO BE TESTED (possibly causing index error)
-        //return renderGrid();
+        visible_grid = renderGrid();
+        return visible_grid;
     }
 
     public static void main(String[] args) {
@@ -211,7 +218,8 @@ public class Game {
                     System.out.println(Arrays.deepToString(output).replace("], ", "]\n"));
 
 
-                } else if (choice.equals("f")) {
+                }
+                else if (choice.equals("f")) {
                     System.out.println("Input the X coordinate of the square you want to place/remove the flag (0-9)");
                     scanner = new Scanner(System.in);
                     int x_coord = Integer.parseInt(scanner.next());
@@ -222,9 +230,11 @@ public class Game {
                     int y_coord = Integer.parseInt(scanner.next());
 
 
-                    placeFlag(x_coord, y_coord);
+                    Object[][] output = placeFlag(x_coord, y_coord);
+                    System.out.println(Arrays.deepToString(output).replace("], ", "]\n"));
 
-                } else if (choice.equals("a")) {
+                }
+                else if (choice.equals("a")) {
                     System.out.println("Input the X coordinate of the square whose adjacent squares you wish to reveal (0-9)");
                     scanner = new Scanner(System.in);
                     int x_coord = Integer.parseInt(scanner.next());
@@ -235,9 +245,30 @@ public class Game {
                     int y_coord = Integer.parseInt(scanner.next());
 
 
-                    revealAdjSquares(x_coord, y_coord);
+                    Object[][] output = revealAdjSquares(x_coord, y_coord);
+                    System.out.println(Arrays.deepToString(output).replace("], ", "]\n"));
+                }
+
+                //code to check if player has won
+                int mines_present = 0;
+                int flagged_mines = 0;
+                for (int i=0; i < game_grid.length; i++) {
+                    for (int j=0; j < game_grid[i].length; j++) {
+                        if (game_grid[j][i].isMined()) {
+                            mines_present += 1;
+                            if (game_grid[j][i].isFlagged()) {
+                                flagged_mines += 1;
+                            }
+                        }
+                    }
+                }
+
+                if (flagged_mines == mines_present) {
+                    System.out.println("CONGRATULATIONS.......YOU WIN!!!!!!!!!!!");
+                    game_over = true;
 
                 }
+
 
 
 

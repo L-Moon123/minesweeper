@@ -6,16 +6,14 @@ public class Square {
     boolean flagged;
     int adjacent_mines;
 
-    int x_coord;
-    int y_coord;
+
 
     public Square() {
         this.mined = false;
         this.uncovered = false;
         this.flagged = false;
         this.adjacent_mines = 0;
-        this.x_coord = 0;
-        this.y_coord = 0;
+
 
     }
 
@@ -34,13 +32,7 @@ public class Square {
         return this.adjacent_mines;
     }
 
-    public int getX_coord() {
-        return this.x_coord;
-    }
 
-    public int getY_coord() {
-        return this.y_coord;
-    }
 
     // Setter methods
     public void setMined(boolean mined) {
@@ -59,11 +51,5 @@ public class Square {
         this.adjacent_mines = adj_mines;
     }
 
-    public void setX_coord(int x_coord) {
-        this.x_coord = x_coord;
-    }
 
-    public void setY_coord(int y_coord) {
-        this.y_coord = y_coord;
-    }
 }
