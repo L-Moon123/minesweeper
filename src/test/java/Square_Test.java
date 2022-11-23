@@ -6,6 +6,14 @@ public class Square_Test {
     public void testConstructor () {
         Square s = new Square();
         Assertions.assertEquals(false, s.isMined());
+        Assertions.assertEquals(false, s.isFlagged());
+
+    }
+
+    @Test
+    public void testSetters() {
+        Square s = new Square();
+
 
     }
 
